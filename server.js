@@ -1,19 +1,19 @@
 
-
 //set dependences
 const express = require('express'),
 	app = express(),
-	portServer = process.env.PORT || 3000;
+	portServer = process.env.PORT || 3000,
+	expressLayouts = require('express-ejs-layouts');
 
+//configurations
+app.use(express.static('./public'));
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
-//actions
-
-//route
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+//routes
+app.use('/', require('./app/routes'));
 
 //starting application
 app.listen(portServer, function () {
-  console.log(`Example app listening on port ${portServer}`);
+  console.log(`App listening on port ${portServer}`);
 });

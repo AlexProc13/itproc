@@ -1,0 +1,6 @@
+<h1 style="text-align:center">CONTACTS<h1>
+
+    <% contacts.forEach(function(contact) { %>
+        <p><%= contact.name %> - <%= contact.url %></p>
+                <a href="/contactView/<%= contact.name %>">SHOW CONTACT</a>
+    <% }); %>
