@@ -1,0 +1,80 @@
+const
+    Contact = require('../models/contact'),
+    CustomField = require('../models/customField');
+
+module.exports = {
+	loadContact: loadContact,
+	loadCustomField: loadCustomField,
+};
+
+function loadContact(req, res) {
+
+    //seed values
+    let seeds = [
+        {
+            name: 'telephone',
+            desc: '',
+            body: '',
+            url: '380668659879',
+            property: 1,
+        },
+        {
+            name: 'linkedin',
+            desc: '',
+            body: '',
+            url: 'https://www.linkedin.com/in/александр-проценко-889a3b145/',
+            property: 0,
+        },
+        {
+            name: 'facebook',
+            desc: '',
+            body: '',
+            url: 'https://www.facebook.com/profile.php?id=100008422570612',
+            property: 0,
+        },
+        {
+            name: 'gitHub',
+            desc: '',
+            body: '',
+            url: 'https://github.com/AlexProc13',
+            property: 0,
+        },
+    ];
+    //remove old contacts
+    Contact.remove({}, function () {
+        insertDate = Contact.insertMany(seeds);
+        //view
+        res.send('WELL. Add contacts');
+    });
+}
+
+function loadCustomField(req, res) {
+
+    //seed values
+    let seeds = [
+        {
+            name:  'nameSite',
+            desc: '',
+            value: 'It Proc',
+            property: 0,
+        },
+        {
+            name: 'adress',
+            desc: '',
+            value: '/',
+            property: 0,
+        },
+        {
+            name: 'description',
+            desc: '',
+            value: 'Если вам нужна помощь в решении различных веб-задач. Обращайтесь',
+            property: 0,
+        },
+    ];
+    //remove old contacts
+    CustomField.remove({}, function () {
+        insertDate = CustomField.insertMany(seeds);
+        //view
+        res.send('WELL. Add seeds');
+    });
+}

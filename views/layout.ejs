@@ -2,13 +2,24 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+      <%
+      let title = customFields.find(function (elem) {
+        if (elem.name === 'nameSite') {
+          return elem;
+        }
+      });
 
-    <title>New Age - Start Bootstrap Theme</title>
+      let desc = customFields.find(function (elem) {
+        if (elem.name === 'description') {
+          return elem;
+        }
+      });
+      %>
+    <title><%= title.value %></title>
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +44,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <a class="navbar-brand js-scroll-trigger" href="/"><%= title.value %></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -59,8 +70,8 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <h1 class="mb-5">New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
-              <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Start Now for Free!</a>
+              <h1 class="mb-5"><%= desc.value %></h1>
+              <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Свяжитесь с нами</a>
             </div>
           </div>
           <div class="col-lg-5 my-auto">
@@ -87,17 +98,17 @@
     <footer>
       <div class="container">
         <p>&copy; Your Website 2018. All Rights Reserved.</p>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="#">Privacy</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">Terms</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">FAQ</a>
-          </li>
-        </ul>
+        <!--<ul class="list-inline">-->
+          <!--<li class="list-inline-item">-->
+            <!--<a href="#">Privacy</a>-->
+          <!--</li>-->
+          <!--<li class="list-inline-item">-->
+            <!--<a href="#">Terms</a>-->
+          <!--</li>-->
+          <!--<li class="list-inline-item">-->
+            <!--<a href="#">FAQ</a>-->
+          <!--</li>-->
+        <!--</ul>-->
       </div>
     </footer>
 

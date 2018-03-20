@@ -1,6 +1,32 @@
-<h1 style="text-align:center">CONTACTS<h1>
+<section class="contact bg-primary" id="contact">
+        <div class="container">
+                <h2>Мы
+                        <i class="fa fa-heart"></i>
+                        ждем Вас!
+                </h2>
+                <ul class="list-inline list-social">
+                    <% contacts.forEach(function(contact) { %>
+                            <%if (contact.property === 0) { %>
+                                <li class="list-inline-item social-<%= contact.name.toLowerCase() %>">
+                                        <a href="<%= contact.url %>" target="_blank">
+                                                <i class="fa fa-<%= contact.name.toLowerCase() %>"></i>
+                                        </a>
+                                </li>
+                            <% } %>
+                    <% }); %>
+                </ul>
+                <br>
+            <%
+            let telephoneContact = contacts.find(function (elem) {
+                if (elem.property === 1) {
+                    return elem;
+                }
+            });
+            %>
 
-    <% contacts.forEach(function(contact) { %>
-        <p><%= contact.name %> - <%= contact.url %></p>
-                <a href="/contactView/<%= contact.name %>">SHOW CONTACT</a>
-    <% }); %>
+                <h2>
+                        Лучше звоните:
+                        <a href="tel:<%= telephoneContact.url %>" style="color: #dd4b39; font-weight: bold; text-decoration: none;"><%= telephoneContact.url %></a>
+                </h2>
+        </div>
+</section>

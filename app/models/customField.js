@@ -2,16 +2,15 @@ const mongoose = require('mongoose'),
  Schema = mongoose.Schema;
 
 //create schema
-const contactSchema = new Schema({
+const customFieldSchema = new Schema({
     name:  String,
     desc: String,
-    body:   String,
-    url: String,
+    value: String,
     property: Number,
 });
 
 //create model
-const contactModel = mongoose.model('Contact', contactSchema);
+const customFieldModel = mongoose.model('CustomField', customFieldSchema);
 
 //export model
-module.exports = contactModel;
+module.exports = customFieldModel;
