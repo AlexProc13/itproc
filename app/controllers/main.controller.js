@@ -1,6 +1,7 @@
 module.exports = {
-	showHome: (req, res) => 
-	{
-		res.render('pages/home');
-	}
+    showHome: showHome,
+};
+
+function showHome(req, res) {
+    res.render('pages/home');
 }

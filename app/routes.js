@@ -4,7 +4,7 @@ const express = require('express'),
     contactController = require('./controllers/contact.controller'),
     viewContactController = require('./controllers/contact.controller');
 
-//middleware
+//middlewareS
 router.use(function timeLog(req, res, next) {
   //console.log('Time: ', Date.now());
   next();
@@ -13,6 +13,7 @@ router.use(function timeLog(req, res, next) {
 //routers
 router.get('/', mainController.showHome);
 router.get('/contact', contactController.showContacts);
+router.get('/contactView/seed', viewContactController.seedContact);
 router.get('/contactView/:name', viewContactController.getContact);
 
 module.exports = router;
