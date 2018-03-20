@@ -14,10 +14,10 @@ router.use(function timeLog(req, res, next) {
 //routers
 router.get('/', mainController.showHome);
 router.get('/contact', contactController.showContacts);
-router.get('/contactView/:name', viewContactController.getContact);
 //load seeds
 router.get('/loadStatic/contact', staticDateController.loadContact);
 router.get('/loadStatic/customFields', staticDateController.loadCustomField);
+router.get('/loadStatic/menu', staticDateController.loadMenu);
 //404 page
 router.get('*', function(req, res){
     res.render('pages/404.ejs');

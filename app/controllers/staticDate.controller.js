@@ -1,10 +1,12 @@
 const
     Contact = require('../models/contact'),
     CustomField = require('../models/customField');
+    Menu = require('../models/menu');
 
 module.exports = {
 	loadContact: loadContact,
 	loadCustomField: loadCustomField,
+    loadMenu: loadMenu,
 };
 
 function loadContact(req, res) {
@@ -74,6 +76,37 @@ function loadCustomField(req, res) {
     //remove old contacts
     CustomField.remove({}, function () {
         insertDate = CustomField.insertMany(seeds);
+        //view
+        res.send('WELL. Add seeds');
+    });
+}
+
+function loadMenu(req, res) {
+
+    //seed values
+    let seeds = [
+        {
+            name:  'Главная',
+            slug: 'home',
+            url: '/',
+            property: 1,
+        },
+        {
+            name: 'O нас',
+            slug: 'aboutUs',
+            url: '/aboutUs',
+            property: 2,
+        },
+        {
+            name: 'Контакты',
+            slug: 'contact',
+            url: '/contact',
+            property: 3,
+        },
+    ];
+    //remove old contacts
+    Menu.remove({}, function () {
+        insertDate = Menu.insertMany(seeds);
         //view
         res.send('WELL. Add seeds');
     });
