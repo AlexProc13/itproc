@@ -33,7 +33,14 @@ class Chat {
                 this.saveToDB(msg, socket);
                 mail.sendMail(nodemailer, this.standartMessege(msg));
                 //send for mail
-                //console.log(msg);
+                //console.log(msg[0].id);
+                //socket.emit('get message', [{message: '22', date: 0, direction: 'left', id: msg[0].id}]);
+                notifier(mail.imap())
+                    .on('mail', function (mail) {
+                        //socket.emit('get message', [{message: '22', date: 0, direction: 'left', id: msg[0].id}]);
+                        this.listenMail(mail.text, socket);
+                    }.bind(this))
+                    .start();
             }.bind(this));
 
 
@@ -46,11 +53,7 @@ class Chat {
                 });
             }.bind(this));
 
-            notifier(mail.imap())
-                .on('mail', function (mail) {
-                    this.listenMail(mail.text, socket);
-                }.bind(this))
-                .start();
+
 
         }.bind(this));
 
@@ -85,9 +88,9 @@ class Chat {
     }
 
     listenMail(mail, socket){
-        //console.log(mail);
         let parts = mail.split('@user-it-proc@');
         let mess = parts[0].split('@@')[0];
+        //console.log(mess);
         let userId = parts[1].replace(/[^-a-zA-Z-0-9]/gim,'');
         //check
         (async function () {
@@ -95,7 +98,7 @@ class Chat {
             if (messDb.length > 1){
                 let message = [{message: mess, date: Date.now(), id: userId, direction: 'left'}];
                 //add to database
-                Message.insertMany(message);
+                await Message.insertMany(message);
                 //send user
                 socket.emit('get message', message);
             }
