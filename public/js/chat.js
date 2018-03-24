@@ -103,12 +103,11 @@ class Chat {
         let getItem = localStorage.getItem('idChat');
         localStorage.removeItem('idChat');
         localStorage.setItem('idChat', key);
-        // if (getItem === null) {
-        //     if (typeof getItem === 'string') {
-        //         localStorage.setItem('idChat', key);
-        //     }
-        //     localStorage.setItem('idChat', key);
-        // }
+        if (getItem === null) {
+            // if (typeof getItem === 'string') {
+                localStorage.setItem('idChat', key);
+            // }
+        }
     }
 
     getChatId(){
