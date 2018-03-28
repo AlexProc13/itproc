@@ -12,6 +12,7 @@ class Chat {
         this.messages = [{message: 'Hello', date: 0, direction: 'left'}];
         this.code = 'user-it-proc';
         this.socket_clients = {};
+        //this.socket_user = {};
     }
 
     //set events
@@ -25,7 +26,8 @@ class Chat {
                 //send mess
                 startMessage[0].user = socket.id;
                 startMessage[0].id = this.generate_id();
-                this.socket_clients[startMessage[0].id] = socket;
+                this.socket_clients[startMessage[0].id] = socket.id;
+                //this.socket_user['socket.id'] = startMessage[0].id;
                 this.saveToDB(startMessage, socket);
                 socket.emit('get message', startMessage);
             }.bind(this));
@@ -43,9 +45,25 @@ class Chat {
                 let massages = Message.find().where({id: msg[0].direction}).sort({date: 'desc'}).limit(this.limitMessage).exec();
                 massages.then(function (message) {
                     this.socket_clients[msg[0].direction] = socket;
+                    //this.socket_user[socket.id] = msg[0].direction;
                     //console.log(this.socket_clients);
                     socket.emit('preStart chat', message.reverse());
                 }.bind(this));
+            }.bind(this));
+
+            //clear old connect
+            socket.on('disconnect', function () {
+                // let user_key = this.socket_user[socket.id];
+                // delete this.socket_clients[user_key];
+                // delete this.socket_user[socket.id];
+                // console.log(this.socket_user);
+                //console.log(Object.keys(this.socket_clients));
+                //find keyd
+                let key = this.getKeyByValueSocketId(this.socket_clients, socket);
+                if (typeof key !== 'undefined') {
+                    //delete
+                    delete this.socket_clients[key];
+                }
             }.bind(this));
 
         }.bind(this));
@@ -82,6 +100,11 @@ class Chat {
             text: msg[0].message+`  @${this.code}@`+msg[0].id + `@${this.code}@`,
         };
     }
+
+    getKeyByValueSocketId(object, value) {
+        return Object.keys(object).find(key => object[key].id === value.id);
+    }
+
 
     listenMail(mail){
         let parts = mail.split('@user-it-proc@');
