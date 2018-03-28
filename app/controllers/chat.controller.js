@@ -26,7 +26,8 @@ class Chat {
                 //send mess
                 startMessage[0].user = socket.id;
                 startMessage[0].id = this.generate_id();
-                this.socket_clients[startMessage[0].id] = socket.id;
+                this.socket_clients[startMessage[0].id] = socket;
+                //console.log('ok');
                 //this.socket_user['socket.id'] = startMessage[0].id;
                 this.saveToDB(startMessage, socket);
                 socket.emit('get message', startMessage);
@@ -45,6 +46,7 @@ class Chat {
                 let massages = Message.find().where({id: msg[0].direction}).sort({date: 'desc'}).limit(this.limitMessage).exec();
                 massages.then(function (message) {
                     this.socket_clients[msg[0].direction] = socket;
+                    //console.log('ok');
                     //this.socket_user[socket.id] = msg[0].direction;
                     //console.log(this.socket_clients);
                     socket.emit('preStart chat', message.reverse());
@@ -110,11 +112,13 @@ class Chat {
         let parts = mail.split('@user-it-proc@');
         let mess = parts[0].split('@@')[0];
         let userId = parts[1].replace(/[^-a-zA-Z-0-9]/gim,'');
+        //console.log(userId);
         //check
         let self = this;
         (async function () {
             ///console.log();
             let messDb = await Message.find().where({id: userId}).exec();
+            //console.log(messDb);
             if (messDb.length > 1){
                 let message = [{message: mess, date: Date.now(), id: userId, direction: 'left'}];
                 //add to database
